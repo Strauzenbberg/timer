@@ -37,11 +37,29 @@
     button:hover {
       background-color: #ffaa00;
     }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 1rem;
+      color: gray;
+      font-family: "Comic Sans MS", cursive, sans-serif; /* fonte alterada */
+    }
+    footer a {
+      color: gray;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="timer" id="timer">01:00</div>
   <button id="startBtn">Start</button>
+
+  <footer>
+    Powered by <a href="https://www.strauz.vercel.app" target="_blank">Strauzenbberg</a>
+  </footer>
 
   <script>
     let tempo = 60; // 1 minuto em segundos
@@ -53,7 +71,7 @@
       document.getElementById('timer').textContent = `${minutos}:${segundos}`;
     }
 
-    document.getElementById('startBtn').addEventListener('click', () => {
+    function iniciarTimer() {
       if (intervalo) return; // evita múltiplos cliques
       intervalo = setInterval(() => {
         if (tempo > 0) {
@@ -65,6 +83,15 @@
           alert("⏰ Tempo esgotado!");
         }
       }, 1000);
+    }
+
+    document.getElementById('startBtn').addEventListener('click', iniciarTimer);
+
+    // Ativar também com tecla Enter
+    document.addEventListener('keydown', (event) => {
+      if (event.key === "Enter") {
+        iniciarTimer();
+      }
     });
 
     atualizarTimer(); // inicializa o display
