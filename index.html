@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Timer 1 Minuto</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+      margin: 0;
+      flex-direction: column;
+    }
+    .timer {
+      font-family: 'Courier New', monospace;
+      font-size: 6rem;
+      color: #ffcc00;
+      background: blue; /* antes era preto */
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ffcc00;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #ffcc00;
+      color: blue; /* antes era preto */
+      font-weight: bold;
+      box-shadow: 0 0 10px #ffcc00;
+    }
+    button:hover {
+      background-color: #ffaa00;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer" id="timer">01:00</div>
+  <button id="startBtn">Start</button>
+
+  <script>
+    let tempo = 60; // 1 minuto em segundos
+    let intervalo = null;
+
+    function atualizarTimer() {
+      let minutos = String(Math.floor(tempo / 60)).padStart(2, '0');
+      let segundos = String(tempo % 60).padStart(2, '0');
+      document.getElementById('timer').textContent = `${minutos}:${segundos}`;
+    }
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      if (intervalo) return; // evita múltiplos cliques
+      intervalo = setInterval(() => {
+        if (tempo > 0) {
+          tempo--;
+          atualizarTimer();
+        } else {
+          clearInterval(intervalo);
+          intervalo = null;
+          alert("⏰ Tempo esgotado!");
+        }
+      }, 1000);
+    });
+
+    atualizarTimer(); // inicializa o display
+  </script>
+</body>
+</html>
