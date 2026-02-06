@@ -74,6 +74,11 @@
     }
 
     function iniciarTimer() {
+      // Se já zerou, reinicia
+      if (tempo === 0) {
+        tempo = 60;
+        atualizarTimer();
+      }
       if (intervalo) return; // evita múltiplos cliques
       intervalo = setInterval(() => {
         if (tempo > 0) {
@@ -82,7 +87,6 @@
         } else {
           clearInterval(intervalo);
           intervalo = null;
-          alert("⏰ Tempo esgotado!");
         }
       }, 1000);
     }
